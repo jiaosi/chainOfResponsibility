@@ -9,7 +9,10 @@ public class Main {
 		String str = "大家好:)，<<script>，敏感，被就业，今天的风，甚是喧嚣啊";
 		MsgProcessor msgProcessor = new MsgProcessor();
 		msgProcessor.setString(str);
-		str = msgProcessor.process();
+		FilterChain filterChain = new FilterChain();
+		filterChain.addFilter(new HTMLFilter())
+					.addFilter(new SensetiveWordsFilter());
+		msgProcessor.setFilterChain(filterChain);
 		System.out.println(str);
 	}
 

@@ -4,7 +4,15 @@ public class MsgProcessor {
 	
 	private String string;
 	
-	Filter[] filters = {new HTMLFilter(), new SensetiveWordsFilter()};
+	private FilterChain filterChain;
+	
+	public FilterChain getFilterChain() {
+		return filterChain;
+	}
+
+	public void setFilterChain(FilterChain filterChain) {
+		this.filterChain = filterChain;
+	}
 
 	public String getString() {
 		return string;
@@ -15,18 +23,8 @@ public class MsgProcessor {
 	}
 	
 	public String process(){
-//		//process the html tag <>
-//		String r = string.replace("<", "[").replace(">", "]");
-//		
-//		//process the sensitive words
-//		r = r.replace("被就业", "就业");
-//		r = r.replace("敏感", "");
-		String r = "";
-		for(Filter f : filters){
-			r = f.doFilter(string);
-		}
 		
-		return r;
+		return filterChain.doFilter(string);
 	}
 
 }
